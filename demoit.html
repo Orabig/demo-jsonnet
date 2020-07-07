@@ -1,0 +1,278 @@
+<h1>Demo Jsonnet</h1>
+
+<h2>Demonstration de Jsonnet (et de Grafonnet)</h2>
+
+<h3>(ou comment simplifier les fichiers de configuration en JSON)</h2>
+
+---
+<h1>Pourquoi Jsonnet ?</h1>
+
+
+---
+<h1>Pourquoi Jsonnet ?</h1>
+
+<h2>L'écriture de dashboard pour grafana en JSON</h2>
+
+Problèmes :
+
+Templates
+Annitations
+Panels
+Links
+Colors/rules
+panels consistency
+
+---
+
+Jsonnet :
+
+Projet open source (Apache License 2.0
+oogle
+
+Implémentations en C++/Go
+
+---
+
+En action
+
+$ go get github.com/google/go-jsonnet/cmd/jsonnet
+
+jsonnet -> json
+
+$ echo "{jsonnet:'ok'}" | jsonnet - | jq .
+{
+  "jsonnet": "ok"
+}
+
+---
+
+Json is Jsonnet
+
+---
+
+Variables
+
+---
+
+Comments
+
+---
+
+Json pour les humains
+
+key:'value'
+
+[item1, item2, item3, ]
+
+"This is a "
++ "very long line "
++ "inside a json value....."
+
+---
+
+variables
+
+local a=1;
+
+{...}
+
+---
+
+functions (trouver un bon exemple)
+ (default value...)
+ 
+---
+
+stdlib
+
+String (join, replace, maps, inserts, loops...)
+
+---
+
+
+Include (for libraries)
+
+---
+
+génération de plusieurs fichiers d'un coup
+
+{"a.json": import "jsonnet/a.jsonnet",
+ "b.json": import "jsonnet/b.jsonnet",
+ "c.json": import "jsonnet/c.jsonnet",
+}
+
+(a tester)
+
+---
+
+Essayer jsonnet fmt
+
+---
+
+grafanet
+
+doc peu complète, mais les fichiers de tests sont complets et facile à comprendre (et le code aussi)
+
+---
+
+ajout dashboard
+
+---
+
+Template, panel
+
+---
+
+attributs lisibles
+
+---
+
+Extensible (+ de jsonnet)
+
+---
+Standard (couleurs, positions...)
+
+---
+
+
+<h1>AIDE MEMOIRE DEMOIT</h1>
+<h2>This is a simple slide</h2>
+<h2>With just <em>text</em></h2>
+<h3>Et on peut aussi écrire petit si on veut</h3>
+
+
+
+
+
+
+
+
+---
+<h1>Triple split <nav-arrows>title</nav-arrows></h1>
+<split-view>
+    <web-term path="folder"></web-term>
+    <fake-window title="mandatory">Ceci est une fenetre fake</fake-window>
+</split-view>
+---
+<h1>Exemple : Bar Chart</h1>
+
+<split-view>
+    <source-code folder=".demoit/js"
+        files="vega1.vg.json vega1.html"
+        start-lines="7;4,11,14"
+        end-lines="21;5,11,18">
+    </source-code>
+    
+    <web-browser src="js/vega1.html"></web-browser>
+</split-view>
+
+
+---
+<h1>Symbol</h1>
+
+<split-view>
+    <source-code folder=".demoit/js"
+        files="mark_symbol.vg.json mark_symbol.html"
+        start-lines="7;4,11,14"
+        end-lines="21;5,11,18">
+    </source-code>
+    
+    <web-browser src="js/mark_symbol.html"></web-browser>
+</split-view>
+
+---
+<h1>Arc</h1>
+
+<split-view>
+    <source-code folder=".demoit/js"
+        files="mark_arc.vg.json mark_arc.html"
+        start-lines="7;4,11,14"
+        end-lines="21;5,11,18">
+    </source-code>
+    
+    <web-browser src="js/mark_arc.html"></web-browser>
+</split-view>
+
+---
+
+<h1>Logos</h1>
+
+<div class="logos">
+    <img src="/images/kubernetes.png" />
+    <img src="/images/kubernetes.png" />
+</div>
+
+---
+
+<h1>Snapshot</h1>
+
+<img src="/images/bazel.png" />
+
+<img id="qr" src="/qrcode?url=https://bazel.build/" />
+
+---
+
+<h1>Terminal</h1>
+
+<split-view>
+    <web-term path="folder"></web-term>
+</split-view>
+
+---
+
+<h1>Shell &amp; Browser - <strong>Type `python -m SimpleHTTPServer` in the shell window</strong></h1>
+
+<split-view>
+    <web-term path="folder"></web-term>
+    <web-browser src="http://localhost:8000/"></web-browser>
+</split-view>
+
+---
+
+<h1>Code samples</h1>
+
+<split-view>
+    <source-code folder="sources"
+        files="main.go pod.yaml"
+        start-lines="26;18,21"
+        end-lines="27;18,22">
+    </source-code>
+</split-view>
+
+---
+
+<h1>Draw on slides</h1>
+
+<p>On the left border of the page there's a pen that can be used to draw on the slides. Type <em>&lt;ESC&gt;</em> to exit draw mode.</p>
+
+<img src="/images/bazel.png" />
+<script src="/js/draw.js"></script>
+
+<style>
+    img {
+        height: 75%;
+    }
+</style>
+---
+
+<h1>Speaker notes</h1>
+
+<p>If speaker notes are provided, they live at <a href="/speakernotes" target="_blank">/speakernotes</a>
+
+<speaker-notes>
+too big.<br/> 
+too big.<br/> 
+too big.<br/> 
+too big.<br/> 
+too big.<br/> 
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+This a a longer text, seriously, is it ok for that ?
+    This text is <b>only for the speaker</b>. It won't be displayed to the audience.
+</speaker-notes>
