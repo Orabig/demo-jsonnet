@@ -5,274 +5,205 @@
 <h3>(ou comment simplifier les fichiers de configuration en JSON)</h2>
 
 ---
-<h1>Pourquoi Jsonnet ?</h1>
+<h1>Introduction : Pourquoi Jsonnet ?</h1>
 
+<h2>Problématique :</h2><h3>L'édition de dashboards dans Grafana</h3>
+
+<ul>
+    <li>Editeur interactif pratique pour une utilisation ponctuelle ...</li>
+    <li>... mais qui se transforme vite en clickodrome dès que le nombre de graphes augmente</li>
+    <li>Pas de template</li>
+    <li>Pas de copier/coller</li>
+    <li>Gestion de version inadaptée</li>
+---
+<h1>Introduction : Pourquoi Jsonnet ?</h1>
+
+<h2>Solution : mettre du GitOps sur Grafana</h2>
+
+Modification de fichiers de descriptions des dashboards ( JSON )<p><font size="6px">↓</font></p>
+Git repository ( Push )<p><font size="6px">↓</font></p>
+Revue / Validation ( Merge Request )<p><font size="6px">↓</font></p>
+Mise à jour ( CI / master )<p><font size="6px">↓</font></p>
+Dashboard modifié dans Grafana
 
 ---
-<h1>Pourquoi Jsonnet ?</h1>
-
-<h2>L'écriture de dashboard pour grafana en JSON</h2>
-
-Problèmes :
-
-Templates
-Annitations
-Panels
-Links
-Colors/rules
-panels consistency
-
----
-
-Jsonnet :
-
-Projet open source (Apache License 2.0
-oogle
-
-Implémentations en C++/Go
-
----
-
-En action
-
-$ go get github.com/google/go-jsonnet/cmd/jsonnet
-
-jsonnet -> json
-
-$ echo "{jsonnet:'ok'}" | jsonnet - | jq .
-{
-  "jsonnet": "ok"
-}
-
----
-
-Json is Jsonnet
-
----
-
-Variables
-
----
-
-Comments
-
----
-
-Json pour les humains
-
-key:'value'
-
-[item1, item2, item3, ]
-
-"This is a "
-+ "very long line "
-+ "inside a json value....."
-
----
-
-variables
-
-local a=1;
-
-{...}
-
----
-
-functions (trouver un bon exemple)
- (default value...)
- 
----
-
-stdlib
-
-String (join, replace, maps, inserts, loops...)
-
----
-
-
-Include (for libraries)
-
----
-
-génération de plusieurs fichiers d'un coup
-
-{"a.json": import "jsonnet/a.jsonnet",
- "b.json": import "jsonnet/b.jsonnet",
- "c.json": import "jsonnet/c.jsonnet",
-}
-
-(a tester)
-
----
-
-Essayer jsonnet fmt
-
----
-
-grafanet
-
-doc peu complète, mais les fichiers de tests sont complets et facile à comprendre (et le code aussi)
-
----
-
-ajout dashboard
-
----
-
-Template, panel
-
----
-
-attributs lisibles
-
----
-
-Extensible (+ de jsonnet)
-
----
-Standard (couleurs, positions...)
-
----
-
-
-<h1>AIDE MEMOIRE DEMOIT</h1>
-<h2>This is a simple slide</h2>
-<h2>With just <em>text</em></h2>
-<h3>Et on peut aussi écrire petit si on veut</h3>
-
-
-
-
-
-
-
-
----
-<h1>Triple split <nav-arrows>title</nav-arrows></h1>
-<split-view>
-    <web-term path="folder"></web-term>
-    <fake-window title="mandatory">Ceci est une fenetre fake</fake-window>
-</split-view>
----
-<h1>Exemple : Bar Chart</h1>
-
-<split-view>
-    <source-code folder=".demoit/js"
-        files="vega1.vg.json vega1.html"
-        start-lines="7;4,11,14"
-        end-lines="21;5,11,18">
-    </source-code>
+<h1>Introduction : Pourquoi Jsonnet ?</h1>
+
+<h3>Le moyen : Grafana API + JSON</h3>
+
+<h3>Mais JSON a des défauts :</h2>
+
+<ul>
+    <li> Très gros fichiers</li>
+    <li> Difficile à lire</li>
+    <li> Mélange du contenu et de la forme</li>
+    <li> Pas de templates ou de moyen de mutualiser du code</li>
+    <ul>
+        <li>Copier/coller obligatoire</li>
+        <li>Difficulté de maintenir une cohérence entre les dashboards</li>
+    </ul>
+</ul>
     
-    <web-browser src="js/vega1.html"></web-browser>
-</split-view>
-
-
 ---
-<h1>Symbol</h1>
+
+<h1>Introduction : Pourquoi Jsonnet ?</h1>
 
 <split-view>
-    <source-code folder=".demoit/js"
-        files="mark_symbol.vg.json mark_symbol.html"
-        start-lines="7;4,11,14"
-        end-lines="21;5,11,18">
-    </source-code>
-    
-    <web-browser src="js/mark_symbol.html"></web-browser>
+
+<source-code folder="sample"
+files="cluster-monitoring-for-kubernetes.json"
+start-lines=""
+end-lines="">
+</source-code>
+
 </split-view>
 
 ---
-<h1>Arc</h1>
+
+<h1>Jsonnet : Installation</h1>
+
+<h2>Jsonnet, c'est quoi ?</h2>
+
+<h3>Un langage de template pour JSON</h3>
+<h3>Open source (Apache License 2.0)</h3>
+<h3><em>https://jsonnet.org/</em></h3>
+<p><br></p>
+<h3>Implémentations en C++/Go</h3>
+
+---
+<h1>Jsonnet</h1>
 
 <split-view>
-    <source-code folder=".demoit/js"
-        files="mark_arc.vg.json mark_arc.html"
-        start-lines="7;4,11,14"
-        end-lines="21;5,11,18">
-    </source-code>
-    
-    <web-browser src="js/mark_arc.html"></web-browser>
+    <web-term path="."></web-term>
+    <fake-window title="Installation">
+        <h4># C++</h4>
+       <pre>
+    $ git clone https://github.com/google/jsonnet
+    $ cd jsonnet
+    $ make && make install
+       </pre>
+
+       <h4># GO</h4>
+       <pre>
+    $ go get github.com/google/go-jsonnet/cmd/jsonnet
+       </pre>
+
+       <h4># Mac (GO)</h4>
+       <pre>
+    $ brew install go-jsonnet
+       </pre>
+
+       <h4># Python lib</h4>
+       <pre>
+    $ pip install jsonnet
+       </pre>
+
+    </fake-window>
 </split-view>
 
 ---
 
-<h1>Logos</h1>
-
-<div class="logos">
-    <img src="/images/kubernetes.png" />
-    <img src="/images/kubernetes.png" />
-</div>
-
----
-
-<h1>Snapshot</h1>
-
-<img src="/images/bazel.png" />
-
-<img id="qr" src="/qrcode?url=https://bazel.build/" />
-
----
-
-<h1>Terminal</h1>
+<h1>Jsonnet : JSON pour les humains</h1>
 
 <split-view>
-    <web-term path="folder"></web-term>
+    <source-code folder="."
+        files="sample1.jsonnet sample2.jsonnet sample3.jsonnet"
+        start-lines=";10;23"
+        end-lines=";14;30"></source-code>
+    <web-term path="."></web-term>
 </split-view>
-
----
-
-<h1>Shell &amp; Browser - <strong>Type `python -m SimpleHTTPServer` in the shell window</strong></h1>
-
-<split-view>
-    <web-term path="folder"></web-term>
-    <web-browser src="http://localhost:8000/"></web-browser>
-</split-view>
-
----
-
-<h1>Code samples</h1>
-
-<split-view>
-    <source-code folder="sources"
-        files="main.go pod.yaml"
-        start-lines="26;18,21"
-        end-lines="27;18,22">
-    </source-code>
-</split-view>
-
----
-
-<h1>Draw on slides</h1>
-
-<p>On the left border of the page there's a pen that can be used to draw on the slides. Type <em>&lt;ESC&gt;</em> to exit draw mode.</p>
-
-<img src="/images/bazel.png" />
-<script src="/js/draw.js"></script>
-
-<style>
-    img {
-        height: 75%;
-    }
-</style>
----
-
-<h1>Speaker notes</h1>
-
-<p>If speaker notes are provided, they live at <a href="/speakernotes" target="_blank">/speakernotes</a>
-
 <speaker-notes>
-too big.<br/> 
-too big.<br/> 
-too big.<br/> 
-too big.<br/> 
-too big.<br/> 
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-This a a longer text, seriously, is it ok for that ?
-    This text is <b>only for the speaker</b>. It won't be displayed to the audience.
-</speaker-notes>
+
+---
+
+<h1>Jsonnet : La génération multi-fichier</h1>
+
+<split-view>
+    <source-code folder="."
+        files="multi.jsonnet"
+        start-lines=""
+        end-lines=""></source-code>
+    <web-term path="."></web-term>
+</split-view>
+<speaker-notes>
+
+
+---
+<h1>Grafonnet</h1>
+
+<h2>Une bibliothèque Jsonnet pour Grafana</h2>
+
+<h3>Génère les fichiers de description JSON pour Grafana</h3>
+<h3><em>https://grafana.github.io/grafonnet-lib</em></h3>
+<p><br></p>
+<ul><li>Documentation très "light"</li>
+<li>... mais beaucoup d'exemples</li>
+<li>... et le code aussi est très light (128k) et facile à comprendre</li>
+</ul>
+
+---
+
+<h1>Grafonnet : Une bibliothèque Jsonnet pour Grafana</h1>
+
+<split-view>
+    <source-code folder="."
+        files="graf1.jsonnet grafonnet/dashboard.libsonnet"
+        start-lines=""
+        end-lines=""></source-code>
+    <web-term path="."></web-term>
+</split-view>
+<speaker-notes>
+
+---
+
+<h1>Grafonnet : Une bibliothèque Jsonnet pour Grafana</h1>
+
+<split-view>
+    <source-code folder="."
+        files="graf2.jsonnet grafonnet/grafana.libsonnet grafonnet/singlestat.libsonnet"
+        start-lines=""
+        end-lines=""></source-code>
+    <web-term path="."></web-term>
+</split-view>
+
+---
+
+<h1>Le project K8S/Grafana</h1>
+
+<h3><em>https://scm.mrs.antidot.net/K8s/grafana</em></h3>
+
+<h3>CI de deploiement automatique</h3>
+
+Modification de fichiers de descriptions des dashboards ( jsonnet )<p><font size="6px">↓</font></p>
+<em>Transformation en JSON</em><p><font size="6px">↓</font></p>
+Git repository ( Push )<p><font size="6px">↓</font></p>
+Revue / Validation ( Merge Request )<p><font size="6px">↓</font></p>
+Mise à jour ( CI / master )<p><font size="6px">↓</font></p>
+Dashboard modifié dans Grafana
+
+
+---
+
+<h1>Le project K8S/Grafana</h1>
+
+<h3>Pousser manuellement un fichier dashboard :</h3>
+<split-view>
+<fake-window title="~/GIT/grafana">
+<pre>
+    <em>~/GIT/grafana $</em> ./manual_publish.sh dashboards/nebula/nodes_metrics_hist.json
+    Building grafonnet image...
+    Done.
+    Updating dashboard nebula/nodes_metrics_hist
+    {
+    "id": 51,
+    "slug": "nodes-wip-main-metrics-history",
+    "status": "success",
+    "uid": "nodes_metrics_hist",
+    "url": "/d/nodes_metrics_hist/nodes-wip-main-metrics-history",
+    "version": 38
+    }
+
+    <em>~/GIT/grafana $</em> 
+</pre>
+</fake-window>
+</split-view>

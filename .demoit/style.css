@@ -68,7 +68,7 @@ h2 {
 }
 
 h2:first-of-type {
-    margin-top: 10vw;
+    margin-top: 5vw;
 }
 
 h3 {
@@ -84,6 +84,19 @@ img {
     width: 80%;
     margin: 7vw auto;
     text-align: center;
+}
+
+pre {
+    text-align: left;
+}
+
+ul {
+    text-align: left;
+    margin-left: 10vw;
+}
+
+li {
+    line-height: 2em;
 }
 
 a, a:visited {

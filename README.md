@@ -27,4 +27,6 @@ cd $HOME/go/src/github.com/dgageot/demoit
 go install -mod=vendor
 ````
 
+You may want to install a special font used by embeded bash window : https://github.com/powerline/fonts/tree/master/Inconsolata
+
 Also ensure that $HOME/go/bin is in your path
